@@ -1,4 +1,4 @@
-# ⚡ Detection Name: Suspicious PowerShell Execution (Encoded & Fileless)
+# Detection Name: Suspicious PowerShell Execution (Encoded & Fileless)
 
 ## 1. Scenario / Objective
 PowerShell is commonly abused by attackers to execute malicious commands while evading detection.
