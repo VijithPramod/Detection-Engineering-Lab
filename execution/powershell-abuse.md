@@ -62,7 +62,7 @@ Analyzed logs using Wazuh + Sysmon:
 Multiple process creation events captured in Wazuh, showing repeated PowerShell activity and suspicious process patterns. These logs indicate potential misuse of PowerShell during attack simulation.
 
 <img width="956" height="852" alt="encoding result" src="https://github.com/user-attachments/assets/6c238822-9403-4a9b-81f5-c686182553a4" />
-Detailed event log showing PowerShell execution with encoded command indicators such as `EncodedCommandParamVariation`. This confirms the presence of obfuscated command-line arguments used during the attack.![Uploading encoding result.png…]()
+Detailed event log showing PowerShell execution with encoded command indicators such as `EncodedCommandParamVariation`. This confirms the presence of obfuscated command-line arguments used during the attack.
 
 
 ---
