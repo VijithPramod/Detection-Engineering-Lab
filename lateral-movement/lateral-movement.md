@@ -1,4 +1,4 @@
-# 🔗 Detection Name: Possible Lateral Movement (Command Execution + net.exe Correlation)
+# Detection Name: Possible Lateral Movement (Command Execution + net.exe Correlation)
 
 ## 1. Scenario / Objective
 Lateral movement is a technique used by attackers to move across systems within a network after gaining initial access.
