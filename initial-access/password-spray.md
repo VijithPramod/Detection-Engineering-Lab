@@ -1,22 +1,22 @@
-# 🔐 Detection Name: Password Spray Attack (Same IP + Multiple Users)
+# Detection Name: Password Spray Attack (Same IP + Multiple Users)
 
 ## 1. Scenario / Objective
 Password spraying is a technique where an attacker attempts a single password across multiple user accounts to avoid account lockouts.
 
 Unlike brute force (many passwords → one user), password spray is:
-👉 One password → many users
+*One password → many users*
 
 This detection focuses on identifying multiple failed login attempts from the same IP address targeting different user accounts within a short timeframe.
 
 ---
 
-## ⚔️ 2. Attack Emulation (Password Spray using PowerShell)
+## 2. Attack Emulation (Password Spray using PowerShell)
 
 To simulate a password spray attack, I manually executed PowerShell commands to attempt authentication across multiple user accounts using the same password.
 
 * **Technique:** T1110.003 - Password Spraying  
 
-### 🔧 Method Used:
+### Method Used:
 - Created multiple user accounts (e.g., user1, user2, user3, user4, user5)
 - Used a single common password across all users
 - Executed repeated authentication attempts using the `net use` command
@@ -29,13 +29,13 @@ foreach ($user in $users) {
     Start-Sleep -Seconds 1
 }
 ```
-### 🎯 Attack Pattern:
+### Attack Pattern:
 Same source system attempting authentication
 Multiple different user accounts targeted
 Same password used across all attempts
 Rapid sequence of login failures
 
-### 📸 Password Spray Execution:
+### Password Spray Execution:
 Multiple authentication attempts were performed against different user accounts using a single password. The repeated failures (System error 1326) indicate invalid credentials and successfully generate logon failure events required for detection.
 
 
@@ -52,7 +52,7 @@ After executing the attack, I analyzed Windows Security logs in Wazuh.
 * **Log Source:** Windows Security Logs  
 * **Event ID:** 4625 (Failed Logon)  
 
-### 🔍 Key Indicators:
+### Key Indicators:
 - Same `IpAddress`
 - Multiple different `TargetUserName`
 - Repeated failed attempts
