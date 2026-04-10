@@ -1,11 +1,11 @@
-# 🔗 Detection Name: Successful Login After Brute Force (Account Compromise)
+# Detection Name: Successful Login After Brute Force (Account Compromise)
 
 ## 1. Scenario / Objective
 After a brute force or password spray attack, attackers often succeed in gaining access to an account.
 
 This detection focuses on identifying a **successful login (Event ID 4624)** that occurs shortly after multiple **failed login attempts (Event ID 4625)**.
 
-👉 This pattern strongly indicates potential **account compromise**.
+* **This pattern strongly indicates potential **account compromise**.**
 
 ---
 
@@ -15,7 +15,7 @@ To simulate a brute force attack followed by account compromise, I executed mult
 
 * **Technique:** T1110 - Brute Force  
 
-### 🔧 Method Used:
+### Method Used:
 - Performed repeated failed login attempts against a single user account using incorrect passwords
 - Followed by a successful login using the correct password
 
@@ -32,13 +32,13 @@ for ($i=0; $i -lt 5; $i++) {
 net use \\localhost\IPC$ /user:testuser <correct_password>
 ```
 
-### 🎯 Attack Pattern:
+### Attack Pattern:
 Multiple failed login attempts for the same user
 Same source system (local machine)
 Followed by a successful authentication
 Indicates possible credential compromise
 
-### 📸 Brute Force Followed by Successful Login Execution:
+### Brute Force Followed by Successful Login Execution:
 Repeated failed authentication attempts were generated (System error 1326), followed by a successful login (The command completed successfully). This simulates an attacker eventually guessing the correct password.
 
 <img width="657" height="397" alt="image" src="https://github.com/user-attachments/assets/99a0f44e-0702-41d9-a760-ed6b495d6bcf" />
@@ -46,7 +46,7 @@ Repeated failed authentication attempts were generated (System error 1326), foll
 
 ---
 
-## 📊 3. Telemetry & Log Analysis
+## 3. Telemetry & Log Analysis
 
 After executing the attack simulation, authentication-related logs were generated and analyzed in Wazuh.
 
