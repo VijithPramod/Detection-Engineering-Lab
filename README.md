@@ -1,4 +1,4 @@
-# 🔐 Detection Engineering Lab (Beginner Project)
+# 🔐 Detection Engineering Lab: Attack Emulation & Log Correlation
 
 This project demonstrates how I built basic detection rules using Wazuh by simulating real-world attack techniques and analyzing logs. 
 
