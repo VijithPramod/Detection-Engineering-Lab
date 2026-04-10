@@ -1,4 +1,4 @@
-# 💥 Detection Name: Ransomware Behavior (Defense Evasion + Backup/Shadow Deletion)
+# Detection Name: Ransomware Behavior (Defense Evasion + Backup/Shadow Deletion)
 
 ## 1. Scenario / Objective
 Ransomware attacks aim to encrypt user data and disrupt recovery mechanisms.
@@ -29,7 +29,7 @@ To simulate ransomware behavior, I executed Atomic Red Team tests along with man
   - Backup deletion (wbadmin)
   - Recovery disable (bcdedit, schtasks)
   - System configuration changes
-### 🎯 Attack Patterns Observed:
+### Attack Patterns Observed:
 Shadow copy deletion attempts
 Backup and recovery removal
 Disabling system restore mechanisms
