@@ -1,4 +1,4 @@
-# 🔐 Detection Name: Brute Force Attack (Same User + Same IP)
+# Detection Name: Brute Force Attack (Same User + Same IP)
 
 ## 1. Scenario / Objective
 Brute force attacks involve repeated login attempts using different passwords against a single user account. 
@@ -8,20 +8,20 @@ This detection focuses on identifying multiple failed login attempts from the sa
 
 ---
 
-## ⚔️ 2. Attack Emulation (Atomic Red Team)
+## 2. Attack Emulation (Atomic Red Team)
 
 To simulate brute force authentication attempts, I executed Atomic Red Team tests targeting repeated login failures.
 
 * **Technique:** T1110 - Brute Force  
 
-### 🔧 Method Used:
+### Method Used:
 - Executed Atomic Red Team test:
   ```powershell
   Invoke-AtomicTest T1110 -TestNumbers 8
   ```
 - Simulated multiple failed login attempts against a user account
 - Generated authentication failure events in Windows Security logs
-### 🎯 Attack Pattern:
+### Attack Pattern:
 - Multiple failed login attempts in a short time window
 - Same user account targeted repeatedly
 - Behavior consistent with brute force attack attempts
