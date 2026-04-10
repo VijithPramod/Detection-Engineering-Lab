@@ -9,40 +9,59 @@ This detection focuses on identifying a **successful login (Event ID 4624)** tha
 
 ---
 
-## 2. Attack Emulation (Atomic Red Team + Manual + PowerShell)
+## 2. Attack Emulation (Brute Force → Successful Login)
 
-To simulate this attack chain, I performed a multi-step attack:
+To simulate a brute force attack followed by account compromise, I executed multiple failed authentication attempts and then performed a successful login using the correct credentials.
 
-### 🔧 Steps:
-1. Generated multiple failed login attempts (brute force/password spray)
-2. Used Atomic Red Team to simulate authentication failures
-3. Performed a **successful login manually / via PowerShell** after failures
+* **Technique:** T1110 - Brute Force  
+
+### 🔧 Method Used:
+- Performed repeated failed login attempts against a single user account using incorrect passwords
+- Followed by a successful login using the correct password
+
+# Brute force (failed attempts)
+```powershell
+
+for ($i=0; $i -lt 5; $i++) {
+    net use \\localhost\IPC$ /user:testuser WrongPassword123
+    Start-Sleep -Seconds 1
+}
+```
+# Successful login
+```powershell
+net use \\localhost\IPC$ /user:testuser <correct_password>
+```
 
 ### 🎯 Attack Pattern:
-- Multiple failed logins (4625)
-- Followed by a successful login (4624)
-- Same user and/or same IP within a short timeframe
+Multiple failed login attempts for the same user
+Same source system (local machine)
+Followed by a successful authentication
+Indicates possible credential compromise
 
-📸 **[INSERT PICTURE 1: Screenshot showing failed attempts followed by successful login]**
+### 📸 Brute Force Followed by Successful Login Execution:
+Repeated failed authentication attempts were generated (System error 1326), followed by a successful login (The command completed successfully). This simulates an attacker eventually guessing the correct password.
+
+<img width="657" height="397" alt="image" src="https://github.com/user-attachments/assets/99a0f44e-0702-41d9-a760-ed6b495d6bcf" />
+
 
 ---
 
-## 3. Telemetry & Log Analysis
+## 📊 3. Telemetry & Log Analysis
 
-Analyzed Windows Security logs in Wazuh:
+After executing the attack simulation, authentication-related logs were generated and analyzed in Wazuh.
 
-* **Event ID 4625:** Failed logon  
-* **Event ID 4624:** Successful logon  
+* **Log Source:** Windows Security Logs  
+* **Key Event IDs:**
+  - **4625** → Failed Login Attempts  
+  - **4624** → Successful Login  
 
-### 🔍 Key Indicators:
-- Same `TargetUserName`
-- Same `IpAddress`
-- Sequence: failures → success
-- Occurring within a short timeframe
+---
 
-This sequence indicates a likely brute force success.
 
-📸 **[INSERT PICTURE 2: Wazuh Discover showing failed + success login sequence]**
+<img width="1908" height="427" alt="image" src="https://github.com/user-attachments/assets/08a710cc-c659-4472-b494-c1b0a11a596a" />
+
+This sequence of failed logins followed by a successful authentication strongly indicates a brute force attack leading to account compromise.
+
 
 ---
 
@@ -59,6 +78,9 @@ This rule correlates successful login events with previous failed login activity
     Successful Login After Brute Force (Possible Account Compromise)
   </description>
   <mitre>
+<id>T1110</id>
+  </mitre>
+</rule>
 ```
 ## 5. Alert Validation, Key Learning & Improvements
 
@@ -66,17 +88,15 @@ The rule successfully triggered when a successful login followed multiple failed
 
 Alert Level: High (Level 13)
 Behavior Detected: Account compromise after brute force
-<img width="1600" height="750" alt="success" src="https://github.com/user-attachments/assets/d487591a-fd17-4d3a-a134-5a8082dffc50" />
 
+<img width="1901" height="264" alt="image" src="https://github.com/user-attachments/assets/949c42b8-6808-435a-9243-e9c8f637119c" />
 
-## 6. Key Learnings
-Correlation provides high-confidence detection
-Sequence-based detection is more powerful than single-event rules
-Matching user/IP context improves accuracy
-## 7. Improvements
-Include IP correlation along with username
-Detect low-and-slow attacks over longer timeframe
-Add geo-location anomaly detection
-    <id>T1110</id>
-  </mitre>
-</rule>
+## Key Learnings
+- Correlation provides high-confidence detection
+- Sequence-based detection is more powerful than single-event rules
+- Matching user/IP context improves accuracy
+## Improvements
+- Include IP correlation along with username
+- Detect low-and-slow attacks over longer timeframe
+- Add geo-location anomaly detection
+    
