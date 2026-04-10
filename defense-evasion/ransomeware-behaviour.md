@@ -62,6 +62,7 @@ The command `vssadmin delete shadows /all /quiet` was executed, indicating an at
 The command `wbadmin delete catalog -quiet` was observed, showing deletion of backup catalog data to disable restoration options.
 
 <img width="933" height="266" alt="rans4 bd" src="https://github.com/user-attachments/assets/48c9b531-0059-4d90-8d88-24ec7bd21b05" />
+
 The command `bcdedit /set {default} bootstatuspolicy ignoreallfailures` suppresses recovery prompts, allowing malicious activity to continue without interruption.
 
 <img width="1906" height="343" alt="ranswazuh logs" src="https://github.com/user-attachments/assets/a2dbab5a-515e-4697-8bc8-eaa4d6782b09" />
