@@ -8,14 +8,23 @@ This detection focuses on identifying multiple failed login attempts from the sa
 
 ---
 
-## 2. Attack Emulation (Atomic Red Team)
+## ⚔️ 2. Attack Emulation (Atomic Red Team)
 
-To simulate brute force behavior, I executed an Atomic Red Team test:
+To simulate brute force authentication attempts, I executed Atomic Red Team tests targeting repeated login failures.
 
-* **Technique:** T1110 - Brute Force
-* **Test Used:** Multiple failed login attempts
+* **Technique:** T1110 - Brute Force  
 
-Additionally, manual failed login attempts were generated to ensure proper telemetry collection.
+### 🔧 Method Used:
+- Executed Atomic Red Team test:
+  ```powershell
+  Invoke-AtomicTest T1110 -TestNumbers 8
+  ```
+- Simulated multiple failed login attempts against a user account
+- Generated authentication failure events in Windows Security logs
+### 🎯 Attack Pattern:
+- Multiple failed login attempts in a short time window
+- Same user account targeted repeatedly
+- Behavior consistent with brute force attack attempts
 
 <img width="859" height="733" alt="atom" src="https://github.com/user-attachments/assets/665b60ae-1386-428f-b917-ebc7ae506c21" />
 
@@ -63,15 +72,14 @@ The rule successfully triggered when multiple failed login attempts occurred for
 * **Alert Level:** High (Level 12)
 * **Behavior Detected:** Repeated authentication failures indicating a brute force attempt
 
-<img width="1600" height="745" alt="unnamed" src="https://github.com/user-attachments/assets/a507ed73-bb25-4228-8848-95199b07fd68" />
+<img width="1910" height="252" alt="image" src="https://github.com/user-attachments/assets/ad62ba16-4914-4984-892c-78fd09d10cdb" />
 
-
-### 6. Key Learnings
+### Key Learnings
 - Brute force detection requires **event correlation**, not single logs
 - Matching **user + IP context** significantly reduces false positives
 - Threshold tuning (frequency/timeframe) is critical for accuracy
 
-### 7. Improvements
+### Improvements
 - Detect **low-and-slow brute force attacks**
 - Correlate with **successful login (4624)** for compromise detection
 - Include **account lockout (4740)** for stronger signals
